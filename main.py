@@ -48,13 +48,14 @@ if do_intro:
 # cmd = get_command("What will you do? <action object> or walk a direction <e w n s>")
 
 
-
+# master dictionary of items
 items = {}
+
 items['key']= { 'd':'A rusty silver key' }
 items['rock']= { 'd':'A small shiny sharp rock' }
 
 
-
+# master dictionary of places
 places = {}
 
 places['Moes Tavern']={ 'moves':{'e':'momst','n':'john cenas place' },
@@ -89,6 +90,7 @@ places['america']={'moves': {'n':'canada',}, 'd':"americans are weird they think
 
 current_place='Moes Tavern'
 
+# items that player is carrying
 itemsininv = ['key',]
 
 
@@ -99,15 +101,30 @@ while True:
   # tells you the description of the current place that you're in
   print(places[current_place]['d'])
  
-  print(places[current_place]['room_items'])
+  room_items = places[current_place]['room_items']
+
+  if room_items:
+    print('You see', ', '.join(room_items) )
+    there_is_items = True
+  else:
+    there_is_items = False
   
   valid_moves = ', '.join(list(places[current_place]['moves'].keys()))
   print("You can move: ",  valid_moves)
 
   # get the move and parse it
   move_raw = input("Your move: ").lower().strip()
+
+  # break up the command into parts
   move_parts = move_raw.split(' ')
+
+  # get the verb which is the first part
   move = move_parts[0]
+
+  print("  # move_raw",move_raw)
+  print("  # move_parts",move_parts)
+  print("  # move",move)
+
   obj = None
   if len( move_parts ) > 1:
     obj = move_parts[1]
@@ -123,10 +140,13 @@ while True:
     current_place=next_place
 
   elif move in ['inv']:
+    print("Inventory")
+    print("---------")
     print(itemsininv) 
 
   elif move in ['map']:
     print(map) 
+
 
   elif move in ['help']:
     print('''
@@ -136,6 +156,8 @@ e w n s   Nagivation
 inv       Show inventory
 map       Show map
 quit      Exit the game
+grab      pick up items
+drop      drop item
     ''')
 
 
@@ -143,11 +165,33 @@ quit      Exit the game
     exit()
 
   # TODO: next time!
-  elif move in ['pick up',item]:
-    exit()
+  elif move in ['grab']:
+    item = move_parts[1]
+    if item in places[current_place]['room_items']:
 
-  elif move in ['drop',item]:
-    exit()
+      # add the item from inventory
+      itemsininv.append(item)
+
+      # remove the item to the place
+      places[current_place]['room_items'].remove(item)
+
+    else:
+      print(item, "is not an item or is not here")
+      continue
+
+  elif move in ['drop']:
+    item = move_parts[1]
+
+    # remove the item from inventory
+    itemsininv.remove(item)
+
+    # add the item to the place
+    places[current_place]['room_items'].append(item)
+
+  elif move in ['look']:
+    item = move_parts[1]
+    if item in places[current_place]['room_items'] or item in itemsininv:
+      print(items[item]['d'])
 
   else:
     print("Not a real move")
