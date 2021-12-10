@@ -1,0 +1,155 @@
+{"Moes Tavern": {
+    "moves": {
+        "e": "Fremont ST",        
+    },
+    "d":
+    "An old fashioned bar with a bartender who looks like a middle aged man in debt.",
+    "room_items": ["rock"],
+   "room_npcs": ["moe"]
+},
+
+"Fremont ST": {
+    "moves": {
+        "w": "Moes Tavern",
+        "n": "Luxor Casino",
+        "e": "The Paris Hotel",
+        "s": "Public Bus"
+    },
+    "d": "Bright lights engulf the entire street",
+    "room_items": [],
+    "room_npcs": []
+},
+
+"Luxor Casino": {
+    "moves": {
+        "s": "Fremont ST"
+         
+    },
+    "d":
+    "A sea of people gambling away, it reminds you of how you ended up on this job",
+    "room_items": [],
+    "room_npcs": []
+},
+
+"place": {
+  "moves": {
+    "e": "Moes Tavern",
+  },
+  "d":
+   "place"
+},
+
+"The Paris Hotel": {
+    "moves": {
+        "w": "Fremont ST",
+      
+        "n": "The Wynn Plaza"
+    },
+    "d": "A luxury hotel",
+    "room_items": [],
+    "room_npcs": []
+},
+
+"The Wynn Plaza": {
+    "moves": {
+        "e": "Taxi",
+        "n": "Food Court",
+        "s": "The Paris Hotel"
+        
+    },
+    "d": "there is a crafting table in here",
+    "room_items": [],
+    "room_npcs": []
+},
+
+"The Strip": {
+    "moves": {
+        "e": "Public Bus"
+        
+    },
+    "d": "The Strip is a famous street in Las Vegas",
+    "room_items": [],
+    "room_npcs": []
+},
+
+"Food Court": {
+    "moves": {
+        "s": "The Wynn Plaza",
+    },
+    "d": "how did we get here? were on jupiter?!",
+    "room_items": [],
+    "room_npcs": []
+},
+
+"Gas Station": {
+    "moves": {
+        "s": "Alleyway",
+        "w": "Public Bus"
+        
+    },
+    "d": "A regular ol gas station",
+  "room_items": [],
+  "room_npcs": []
+},
+
+"Alleyway": {
+    "moves": {
+        "n": "Gas Station",
+        
+    },
+    "d":
+    "Sketchy lookin allyway",
+    "room_items": [],
+    "room_npcs": ["Creepy_Bob"]
+},
+
+"Death Valley": {
+    "moves": {
+        "w": "Public Bus"
+        
+    },
+    "d": "The hottest place in the country, watch out for rattlesnakes!",
+    "room_items": ["talkin_rattlesnake"],
+    "room_npcs": ["talkin_rattlesnake"]
+},
+
+"Hoover Dam": {
+    "moves": {
+        "n": "Public Bus",
+    },
+    "d": "A massive concrete dam in the Black Canyon of the Colorado River.",
+    "room_items": [],
+    "room_npcs": []
+},
+
+"Cheap Motel Room": {
+    "moves": {
+        "n": "Taxi",
+    },
+    "d": "You"re pretty sure the room is infected with cockroaches ",
+    "room_items": [],
+    "room_npcs": []
+},
+
+"Taxi": {
+    "moves": {
+        "n": "The Wynn Plaza",
+        "w": "Gas Station",
+        "s": "Cheap Hotel Room"
+    },
+    "d": "Average taxi cab ",
+    "room_items": [],
+    "room_npcs": []
+},
+
+"Public Bus": {
+    "moves": {
+        "e": "Death Valley",
+        "s": "Hoover Dam",
+        "w": "The Strip",
+        "n": "Fremont ST"
+    },
+    "d": "B U S",
+    "room_items": [],
+    "room_npcs": ["crazy_guy", "liam", "homer_simpson"]
+}}
