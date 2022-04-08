@@ -1,0 +1,24 @@
+{
+"secretthing": {"d": "a secret thing shaped like a question mark", "damage": 1},
+"rock":{"d": "its a rock", "damage": 1},
+"spunnge": {"d": " A Nano Magnetic Neo Nuclear Bomb with the capability to wipe out a entire country", "damage": 2147483647},
+"key": {"d": "A rusty silver key,", "damage": 2},
+"rope": {"d": "it's a piece of rope", "damage":3},
+
+"notebook": {"d": "A small leather notebook.  Inside is written:\n\n(write some plot hints here)", "damage":1},
+
+"watch": {"d": "A watch that has a tiny lasergun hidden in it", "damage":5},
+"disguise": {"d": "A disguise with fake glasses and fake eyebrows", "damage":0},
+"camera": {"d": "A tiny camera that looks like a pen!", "damage":1},
+"talkin_rattlesnake": {"d": "the key to destroying the sponng", "damage":2},
+"damaged_spear": {"d": "a slightly damaged spear", "damage":5},
+"lion teeth": {"d": "the teeth of a lion", "damage":3},
+"stick": {"d": "it's a stick", "damage":2},
+"spear": {"d": "an actual weapon" , "damage":6},
+"shield": {"d": "a handy tool that will help you defend yourself", "damage":1},
+"metalplate": {"d": "a thick strong piece of metal", "damage":2},
+"scrap": {"d": "a rusty metal scrap", "damage":1 },
+"leather": {"d": "the tanned skin of a cow, very helpful for crafting stuff", "damage":1},
+"nails": {"d": "a couple of nails for building", "damage":3},
+"nns": {"d": "a nano-nuclear-synthesizer capable of destroying the spunnge", "damage":1}
+}
