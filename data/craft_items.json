@@ -1,0 +1,6 @@
+{
+"spear": ["rock", "rope", "stick"],
+"shield": ["metalplate", "leather", "nails"],
+"metalplate": ["scrap"],
+"nns": ["talkin_rattlesnake", "secretthing"]
+}
