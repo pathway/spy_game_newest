@@ -1,0 +1,7 @@
+          fc          dv
+          |           |
+         wp--tx--gs--pb--ts
+          |    |  |   |
+     lc   |    cm Al  |
+     |    |           hd
+mt---fs---ph--ap

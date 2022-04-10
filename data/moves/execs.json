@@ -1,0 +1,16 @@
+{
+    "news": "helper_move(move, current_place)",
+    "inv": "print(\"Inventory\");print(\"---------\");print(itemsininv)",
+    "map": "print(map)",
+    "current_place_moes_tavern": "if current_place == \"Moes Tavern\": current_place = \"moes hidden room\"",
+    "craft": "helper_craft(move_parts[1])",
+    "help": "print(u.load_text(\"commands\")",
+    "quit": "exit()",
+    "talk": "helper_talk(move_parts[0])",
+    "grab": "helper_grab(move_parts[1])",
+    "drop": "item = move_parts[1], if item in itemsininv:\n    itemsininv.remove(item)\n    places[current_place][\"room_items\"].append(item)\nelse:\n    print(\"Not a real move    -______-\")",
+    "look": "item = move_parts[1]\nif item in places[current_place][\"room_items\"] or item in itemsininv:\n    print(items[item][\"d\"])\nelse:\n    print(\"you cant see it\")",
+    "rickroll": "print(u.load_text(\"strings/nevergonnagiveyouup\"))",
+    "use": "helper_use(move_parts[0])",
+    "attack": "helper_attack(move_parts[0], move_parts[1])"
+}
