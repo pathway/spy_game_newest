@@ -1,0 +1,10 @@
+Commands:
+
+e w n s         Nagivation
+inv             Show inventory
+map             Show map
+quit            Exit the game
+grab (item)     pick up items
+drop (item)     drop items
+talk (name)     talk to npc
+craft (item)    craft items
