@@ -86,6 +86,14 @@ if run_mode == Run_Mode.HUMAN:
 
 ## Couldn't put these in their own file because they reference globals too much. @pathway think you can solve this? I think it's just a matter of adding more arguments.
 
+def helper_look(item) -> None:
+    item = move_parts[1]
+    if item in places[current_place]["room_items"] or item in itemsininv:
+        print(items[item]["d"])
+    else:
+        print("you cant see it")",
+
+
 def helper_move(move: str, current_place: str) -> None:
     if move == "e" and current_place == "Luxor Casino" and plot_moves["health"] == 0:
         print("you manage to get out")
