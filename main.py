@@ -31,13 +31,15 @@ run_mode="TEST"
 scripts = { 
   'win': ['e', 'e', 'n', 'e', 'e', 'e', 'n', 'grab talkin_rattlesnake', 'craft nns', 's', 'w', 'w', 'w', 's', 'w', 'w','secret_place', 'use nns'],
   'spunnge': ['e', 'e', 'n', 'e', 'e', 'e', 'n', 'grab talkin_rattlesnake', 'craft nns', 's', 'w', 'w', 'w', 's', 'w', 'w','secret_place', 'grab spunnge', 'use spunnge'],
+  'airport': ['e', 'e', 'e'],
   'attack': ['grab rock', 'attack moe rock', 'attack moe rock'], 
   'lose2': ['w',],
   'map': ['e','n','s','e','n','n','s','e','s','n','e','s','n','e','n','s','e','w','s','n'],  # try to visit every room
 }
 #use_script='win'
 #use_script='map'
-use_script='attack'
+#use_script='attack'
+use_script='airport'
 
 def get_command(question):
     '''
@@ -149,7 +151,7 @@ while True:
     '''
   Special plot moves BEFORE regular moves
   '''
-
+    if move == 'e' and current_place == 'The Paris Hotel' and "winner" == 0: print("you can't go there") and current_place == 'The Paris Hotel'
     # navigation move?
     if move in ['e', 'w', 's', 'n']:
 
@@ -323,34 +325,11 @@ Never gonna tell a lie and hurt you
 
                 plot_moves['diffused_bomb'] = 1
 
-        pass
-        if item == "spear":
-            if current_place == "Lion Cage":
-              print("you stab the lion")
-              print("it doesn't die but is hurt")
-              print("your spear is now a damaged_spear")
-              print("it claws at you")
-
-              plot_moves['lion_health'] = 1
-              plot_moves['health'] = 1
-              itemsininv.remove("spear")
-              itemsininv.append("damaged_spear")
-
-        pass
-        if item == "damaged_spear":
-          if current_place == "Lion Cage":
-            if plot_moves['lion_health'] == 1:
-              print("your spearhead lodged in the lion killing it")
-              print("and you take it's teeth")
-              print("you see the door of the lion cage open")
-
-              plot_moves['lion_health'] = 2
-              itemsininv.append("lion teeth")
             else:
                 print("You cant use that here")
         pass
         if item == "spunnge":
-              print("you are the stupidest person on earth!")
+              print("you are the dumbest person ever onearth!")
               print("you killed us all!")
               break
 
