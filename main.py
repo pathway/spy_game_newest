@@ -86,12 +86,19 @@ if run_mode == Run_Mode.HUMAN:
 
 ## Couldn't put these in their own file because they reference globals too much. @pathway think you can solve this? I think it's just a matter of adding more arguments.
 
-def helper_look(item) -> None:
+def helper_look(item: str) -> None:
     item = move_parts[1]
     if item in places[current_place]["room_items"] or item in itemsininv:
         print(items[item]["d"])
     else:
-        print("you cant see it")",
+        print("you cant see it")
+
+def helper_drop(item: str) -> None:
+    if item in itemsininv:
+        itemsininv.remove(item)
+        places[current_place]["room_items"].append(item)
+        else:
+            print("Not a real move    -______-")",
 
 
 def helper_move(move: str, current_place: str) -> None:
