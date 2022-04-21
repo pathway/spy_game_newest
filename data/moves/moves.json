@@ -1,0 +1,21 @@
+{
+    "n": "news",
+    "e": "news",
+    "w": "news",
+    "s": "news",
+    "inv": "inv",
+    "map": "map",
+    "secret_place": "current_place_moes_tavern",
+    "craft": "craft",
+    "help": "help",
+    "quit": "quit",
+    "talk": "talk",
+    "grab": "grab",
+    "drop": "drop",
+    "look": "look",
+    "rick": "rickroll",
+    "rickroll": "rickroll",
+    "r": "rickroll",
+    "rr": "rickroll",
+    "RR": "rickroll"
+}

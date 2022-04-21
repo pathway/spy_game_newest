@@ -1,0 +1,11 @@
+{
+    "nns": {
+        "use_place": ["moes hidden room"],
+        "uses": {
+            "moes hidden room": {
+                "string": "Ok you use the nns\nAnd it stops the bomb!",
+                "execs": "plot_moves[\"diffused_bomb\"] = 1"
+            }
+        }
+    }
+}
