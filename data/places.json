@@ -56,8 +56,8 @@
 "The Paris Hotel": {
     "moves": {
         "w": "Fremont ST",
-      
-        "n": "The Wynn Plaza"
+        "n": "The Wynn Plaza",
+        "e": "LV Airport"
     },
     "d": "A luxury hotel",
     "room_items": [],
@@ -180,7 +180,7 @@
 
   "LV Airport": {
     "moves": {
-      "w": "Paris Hotel"
+      "w": "The Paris Hotel"
     },
     "d": "The Las Vegas Airport",
     "room_items": [],
