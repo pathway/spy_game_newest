@@ -247,7 +247,8 @@ craft (item)    craft items
           entity_details["health"] -= item_damage
           entities[entity_name][ "hits" ] += 1
           print(hits)
-          if hits >= hw: break
+          if hits >= hw:
+            plot_moves['PH'] -= entities[entity_name]["damage"]
           
 
 
@@ -329,7 +330,7 @@ Never gonna tell a lie and hurt you
                 print("You cant use that here")
         pass
         if item == "spunnge":
-              print("you are the dumbest person ever onearth!")
+              print("you are the dumbest person ever on earth!")
               print("you killed us all!")
               break
 
@@ -353,26 +354,9 @@ Never gonna tell a lie and hurt you
     if move == 'grab' and obj == 'rock':
         print("Under the rock you found a secretthing!")
         itemsininv.append("secretthing")
-
-    if  move == 'e' and current_place == "Luxor Casino" and plot_moves['health'] == 0:
-      print("you manage to get out")
-      print("but not without getting scratched")
-
-      plot_moves['health'] = 2
-    '''
-  for later idc about it rn
-    if move == 'talk' and npc == 'dog' and current_place == "Allyway" and "dog" == 0:
-      "dog" == 1
-    '''
-
-    if move == 'w' and current_place == "Lion Cage" and plot_moves['health'] == 2:
-      print("you got eaten by the lion")
+    if plot_moves['PH'] <= 0: 
+      print("you died")
       break
-
-    if  move == 'e' and current_place == "Luxor Casino" and plot_moves['health'] == 1:
-      print("you just barely manage to get out with your life")
-      print("you are extreamly close to death")
-
 
     # WIN CONDITION
     if plot_moves['diffused_bomb'] == 1:
