@@ -123,13 +123,10 @@ if run_mode == "HUMAN":
             do_intro = False
             break
 
-def game_step( game_state, ):
 
-    global run_mode
-    global script_index
-    global scripts
-    # --- Get the observation
 
+
+def game_show_status( game_state, ):
     print('Your location: ', game_state.current_place)
 
     # tells you the description of the current place that you're in
@@ -154,7 +151,10 @@ def game_step( game_state, ):
     print("You can move: ", valid_moves)
 
 
-    # --- Enter the move
+def game_get_move( game_state):
+    global run_mode
+    global script_index
+    global scripts
 
     if run_mode == "TEST":
           # did we run out of script commands? then switch to human mode
@@ -169,9 +169,20 @@ def game_step( game_state, ):
         move_raw = input("Your move: ").lower().strip()
         print("---")
 
-      
     # --- Process the move
-      
+
+    return move_raw
+
+def game_step( game_state, ):
+
+
+    # --- Get the observation
+    game_show_status( game_state )
+
+    # --- Enter the move
+
+    move_raw = game_get_move( game_state )
+            
     # break up the command into parts
     move_parts = move_raw.split(' ')
 
