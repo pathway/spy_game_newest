@@ -378,3 +378,5 @@ Never gonna tell a lie and hurt you
 
     print()
 #print("dis is gonna be an inventory")r
+'''hi
+'''
