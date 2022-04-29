@@ -123,10 +123,11 @@ if run_mode == "HUMAN":
             do_intro = False
             break
 
-while True:
+def game_step( game_state, ):
 
-    #game_step( game_state, )
-  
+    global run_mode
+    global script_index
+    global scripts
     # --- Get the observation
 
     print('Your location: ', game_state.current_place)
@@ -194,7 +195,8 @@ while True:
 
         if move not in game_state.places[game_state.current_place]['moves']:
             print("Cant move there")
-            continue
+            #continue
+            return
         next_place = game_state.places[game_state.current_place]['moves'][move]
         game_state.current_place = next_place
 
@@ -318,7 +320,8 @@ craft (item)    craft items
 
         else:
             print(item, "is not an item or is not here")
-            continue
+            #continue
+            return
 
     elif move in ['drop']:
         item = move_parts[1]
@@ -329,9 +332,11 @@ craft (item)    craft items
             # add the item to the place
             game_state.places[game_state.current_place]['room_items'].append(item)
         else:
-            continue
+            #continue
+            return
             print("Not a real move  -______-")
-        continue
+        #continue
+        return
 
     elif move in ['look']:
         item = move_parts[1]
@@ -376,7 +381,7 @@ Never gonna tell a lie and hurt you
         if item == "spunnge":
               print("you are the dumbest person ever on earth!")
               print("you killed us all!")
-              break
+              return
 
 
         else:
@@ -390,7 +395,7 @@ Never gonna tell a lie and hurt you
     else:
         print("Not a real move")
         print("-______-")
-        continue
+        return
 
     '''
     Special plot moves AFTER the move
@@ -400,7 +405,7 @@ Never gonna tell a lie and hurt you
         game_state.itemsininv.append("secretthing")
     if game_state.plot_moves['PH'] <= 0: 
       print("you died")
-      break
+      return
 
     # WIN CONDITION
     if game_state.plot_moves['diffused_bomb'] == 1 and "shuddup" == 0:
@@ -414,3 +419,8 @@ Never gonna tell a lie and hurt you
 #print("dis is gonna be an inventory")r
 '''hi
 '''
+
+
+
+while True:
+    game_step( game_state, )
