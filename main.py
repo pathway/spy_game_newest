@@ -1,29 +1,67 @@
-from pprint import pprint as pprint
+from pprint import pprint as pp
 import json
 from pdb import set_trace as st
+import utils
+#import actions
 
 '''
 notes.
 
 '''
-## load vars
-places = {}
-items = {}
-craft_items = {}
-npcs = {}
-entities = {}
-with open("data/places.json") as file:
-    places = json.load(file)
-with open("data/items.json") as file:
-    items = json.load(file)
-with open("data/craft_items.json") as file:
-    craft_items = json.load(file)
-with open("data/npcs.json") as file:
-    npcs = json.load(file)
-with open("data/entities.json") as file:
-    entities = json.load(file)
 
-state = {}
+
+class GameState:
+
+  def __init__(self):
+    self.places = {}
+    self.items = {}
+    self.craft_items = {}
+    self.npcs = {}
+    self.entities = {}
+    self.state = {}
+    self.current_place = 'Moes Tavern'
+
+    self.plot_moves = {
+      'diffused_bomb': 0,
+      'room': 0,
+      'lion_health': 0,
+      'PH': 10,
+      'dog': 0,
+      'winner': 0,
+      'shuddup': 0,
+    }
+
+    # items in players inventory
+    self.itemsininv = []
+
+  def reset(self):
+    self.places = utils.load_json("places")
+    self.items = utils.load_json("items")
+    self.craft_items = utils.load_json("craft_items")
+    self.npcs = utils.load_json("npcs")
+    self.entities = utils.load_json("entities")
+
+  def load(self, location):
+    # load a saved game
+    pass
+
+  def save(self, location):
+    # saved game
+    pass
+
+
+
+gs = GameState()
+gs.reset()
+game_state=gs
+pp(gs)
+#exit(0)
+
+
+script_index = 0  # keep track of which index we are on in the the script
+
+
+
 
 #run_mode = "HUMAN"
 run_mode="TEST"
@@ -36,9 +74,9 @@ scripts = {
   'lose2': ['w',],
   'map': ['e','n','s','e','n','n','s','e','s','n','e','s','n','e','n','s','e','w','s','n'],  # try to visit every room
 }
-use_script='win'
+#use_script='win'
 #use_script='map'
-#use_script='attack'
+use_script='attack'
 #use_script='airport'
 
 def get_command(question):
@@ -67,28 +105,11 @@ mt---fs---ph--ap
 
 '''
 
-current_place = 'Moes Tavern'
-
-# items in players inventory
-itemsininv = []
-
-plot_moves = {
-    'diffused_bomb': 0,
-    'room': 0,
-    'lion_health': 0,
-    'PH': 10,
-    'dog': 0,
-    'winner': 0,
-    'shuddup': 0,
-}
-
-script_index = 0  # keep track of which index we are on in the the script
 
 
 def intro():
-    with open("data/intro.txt") as intro:
-        for line in intro:
-            print(line)
+    print(utils.load_text("intro"))
+    pass
 
 
 if run_mode == "HUMAN":
@@ -103,12 +124,17 @@ if run_mode == "HUMAN":
             break
 
 while True:
-    print('Your location: ', current_place)
+
+    #game_step( game_state, )
+  
+    # --- Get the observation
+
+    print('Your location: ', game_state.current_place)
 
     # tells you the description of the current place that you're in
-    print(places[current_place]['d'])
+    print(game_state.places[game_state.current_place]['d'])
 
-    room_items = places[current_place]['room_items']
+    room_items = game_state.places[game_state.current_place]['room_items']
     if room_items:
         print('You see', ', '.join(room_items))
         there_is_items = True
@@ -116,14 +142,18 @@ while True:
         there_is_items = False
 
     room_npcs = None
-    if 'room_npcs' in places[current_place]:
-        room_npcs = places[current_place]['room_npcs']
+    if 'room_npcs' in game_state.places[game_state.current_place]:
+        room_npcs = game_state.places[game_state.current_place]['room_npcs']
     if room_npcs:
         print('Also in this room:', room_npcs)
 
-    valid_moves = ', '.join(list(places[current_place]['moves'].keys()))
+    # --- Determine valid moves
+  
+    valid_moves = ', '.join(list(game_state.places[game_state.current_place]['moves'].keys()))
     print("You can move: ", valid_moves)
 
+
+    # --- Enter the move
 
     if run_mode == "TEST":
           # did we run out of script commands? then switch to human mode
@@ -138,6 +168,9 @@ while True:
         move_raw = input("Your move: ").lower().strip()
         print("---")
 
+      
+    # --- Process the move
+      
     # break up the command into parts
     move_parts = move_raw.split(' ')
 
@@ -155,20 +188,20 @@ while True:
     '''
   Special plot moves BEFORE regular moves
   '''
-    if move == 'e' and current_place == 'The Paris Hotel' and "winner" == 0: print("you can't go there") and current_place == 'The Paris Hotel'
+    if move == 'e' and game_state.current_place == 'The Paris Hotel' and "winner" == 0: print("you can't go there") and game_state.current_place == 'The Paris Hotel'
     # navigation move?
     if move in ['e', 'w', 's', 'n']:
 
-        if move not in places[current_place]['moves']:
+        if move not in game_state.places[game_state.current_place]['moves']:
             print("Cant move there")
             continue
-        next_place = places[current_place]['moves'][move]
-        current_place = next_place
+        next_place = game_state.places[game_state.current_place]['moves'][move]
+        game_state.current_place = next_place
 
     elif move in ['inv']:
         print("Inventory")
         print("---------")
-        print(itemsininv)
+        print(game_state.itemsininv)
 
     #elif move in ['recipes']:
     #    print(craft_items)
@@ -178,9 +211,9 @@ while True:
         print(map)
 
     elif move in ['secret_place']:
-        #places[current_place] = 'place'
-        if current_place == 'Moes Tavern':
-          current_place = 'moes hidden room'
+        #game_state.places[game_state.current_place] = 'place'
+        if game_state.current_place == 'Moes Tavern':
+          game_state.current_place = 'moes hidden room'
 
 
     elif move in ['craft']:
@@ -189,29 +222,29 @@ while True:
         # use craft_items dictionary
         # craft_items['spear']= ['rock','rope','stick']
 
-        if craft_obj not in craft_items.keys():
+        if craft_obj not in game_state.craft_items.keys():
             print("That item can not be crafted")
         else:
 
             got_all_the_items = True
 
-            items_needed = craft_items[craft_obj]
+            items_needed = game_state.craft_items[craft_obj]
             #['rock','rope','stick']
 
             # check if you have the items needed to craft it
             for item in items_needed:
-                if item not in itemsininv:
+                if item not in game_state.itemsininv:
                     print('dont have ', item)
                     got_all_the_items = False
 
             # if you have all the items, remove all ingredients
             if got_all_the_items == True:
                 for item in items_needed:
-                    if item in itemsininv:
-                        itemsininv.remove(item)
+                    if item in game_state.itemsininv:
+                        game_state.itemsininv.remove(item)
 
                 # add the new crafted item into our inventory
-                itemsininv.append(craft_obj)
+                game_state.itemsininv.append(craft_obj)
                 print('you crafted a ', craft_obj)
             else:
                 print("Dont have all the items for that!")
@@ -236,51 +269,52 @@ craft (item)    craft items
       
 
     elif move in ['NYC']:
-      if current_place == "LV Airport":
-        current_place == "NYC Airport"
+      if game_state.current_place == "LV Airport":
+        game_state.current_place == "NYC Airport"
         
 
     elif move in ['attack']:
        entity_name = move_parts[1]
        item_name = move_parts[2]
-       alive = entities[entity_name][ "life" ]
-       hits = entities[entity_name][ "hits" ]
-       hw = entities[entity_name][ "HW" ]
-       entity_details = entities[ entity_name ]
-       entity_damage = entities[entity_name][ "damage" ]
-       item_damage = items[item_name][ "damage" ]
-       if entity_name in places[current_place]['room_entities']:
-          if entities[entity_name]["life"] == 0:
+       alive = game_state.entities[entity_name][ "life" ]
+       hits = game_state.entities[entity_name][ "hits" ]
+       hw = game_state.entities[entity_name][ "HW" ]
+       entity_details = game_state.entities[ entity_name ]
+       entity_damage = game_state.entities[entity_name][ "damage" ]
+       item_damage = game_state.items[item_name][ "damage" ]
+       if entity_name in game_state.places[game_state.current_place]['room_entities']:
+          if game_state.entities[entity_name]["life"] == 0:
             if hits == 0: print(entity_details["responce"][0])
             if hits == 1: print(entity_details["responce"][1])
             if hits == 2: print(entity_details["responce"][2])
           entity_details["health"] -= item_damage
-          entities[entity_name][ "hits" ] += 1
+          game_state.entities[entity_name][ "hits" ] += 1
           
           if hits >= hw:
-            plot_moves['PH'] -= entities[entity_name]["damage"]
+            game_state.plot_moves['PH'] -= game_state.entities[entity_name]["damage"]
+          print (game_state.plot_moves['PH'])
           
 
 
 
     #elif move in ['secret_room']:
-    #set [current_place] 'place'
+    #set [game_state.current_place] 'place'
 
     elif move in ['talk']:
         npc = move_parts[1]
-        if npc in places[current_place]['room_npcs']:
-            say = npc + " says: " + npcs[npc]
+        if npc in game_state.places[game_state.current_place]['room_npcs']:
+            say = npc + " says: " + game_state.npcs[npc]
             print(say)
 
     elif move in ['grab']:
         item = move_parts[1]
-        if item in places[current_place]['room_items']:
+        if item in game_state.places[game_state.current_place]['room_items']:
 
             # add the item from inventory
-            itemsininv.append(item)
+            game_state.itemsininv.append(item)
 
             # remove the item to the place
-            places[current_place]['room_items'].remove(item)
+            game_state.places[game_state.current_place]['room_items'].remove(item)
 
         else:
             print(item, "is not an item or is not here")
@@ -288,12 +322,12 @@ craft (item)    craft items
 
     elif move in ['drop']:
         item = move_parts[1]
-        if item in itemsininv:
+        if item in game_state.itemsininv:
             # remove the item from inventory
-            itemsininv.remove(item)
+            game_state.itemsininv.remove(item)
 
             # add the item to the place
-            places[current_place]['room_items'].append(item)
+            game_state.places[game_state.current_place]['room_items'].append(item)
         else:
             continue
             print("Not a real move  -______-")
@@ -301,8 +335,8 @@ craft (item)    craft items
 
     elif move in ['look']:
         item = move_parts[1]
-        if item in places[current_place]['room_items'] or item in itemsininv:
-            print(items[item]['d'])
+        if item in game_state.places[game_state.current_place]['room_items'] or item in game_state.itemsininv:
+            print(game_state.items[item]['d'])
         else:
             print("you cant see it")
 
@@ -330,11 +364,11 @@ Never gonna tell a lie and hurt you
     elif move == "use":
         item = move_parts[1]
         if item == "nns":
-            if current_place == "moes hidden room":
+            if game_state.current_place == "moes hidden room":
                 print("Ok you use the nns")
                 print("And it stops the bomb!")
 
-                plot_moves['diffused_bomb'] = 1
+                game_state.plot_moves['diffused_bomb'] = 1
 
             else:
                 print("You cant use that here")
@@ -363,13 +397,13 @@ Never gonna tell a lie and hurt you
     '''
     if move == 'grab' and obj == 'rock':
         print("Under the rock you found a secretthing!")
-        itemsininv.append("secretthing")
-    if plot_moves['PH'] <= 0: 
+        game_state.itemsininv.append("secretthing")
+    if game_state.plot_moves['PH'] <= 0: 
       print("you died")
       break
 
     # WIN CONDITION
-    if plot_moves['diffused_bomb'] == 1 and "shuddup" == 0:
+    if game_state.plot_moves['diffused_bomb'] == 1 and "shuddup" == 0:
         # TODO: Write a fancy ending
         print("congratulations you win")
         print("you can keep playing")
