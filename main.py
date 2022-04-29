@@ -36,10 +36,10 @@ scripts = {
   'lose2': ['w',],
   'map': ['e','n','s','e','n','n','s','e','s','n','e','s','n','e','n','s','e','w','s','n'],  # try to visit every room
 }
-#use_script='win'
+use_script='win'
 #use_script='map'
 #use_script='attack'
-use_script='airport'
+#use_script='airport'
 
 def get_command(question):
     '''
@@ -50,6 +50,9 @@ def get_command(question):
     return answer.split()
 
 NYC = '''
+      
+
+  ts-tx-ap
 '''
 
 map = '''
@@ -76,6 +79,7 @@ plot_moves = {
     'PH': 10,
     'dog': 0,
     'winner': 0,
+    'shuddup': 0,
 }
 
 script_index = 0  # keep track of which index we are on in the the script
@@ -229,6 +233,12 @@ craft (item)    craft items
 
     elif move in ['quit']:
         exit()
+      
+
+    elif move in ['NYC']:
+      if current_place == "LV Airport":
+        current_place == "NYC Airport"
+        
 
     elif move in ['attack']:
        entity_name = move_parts[1]
@@ -246,7 +256,7 @@ craft (item)    craft items
             if hits == 2: print(entity_details["responce"][2])
           entity_details["health"] -= item_damage
           entities[entity_name][ "hits" ] += 1
-          print(hits)
+          
           if hits >= hw:
             plot_moves['PH'] -= entities[entity_name]["damage"]
           
@@ -359,11 +369,12 @@ Never gonna tell a lie and hurt you
       break
 
     # WIN CONDITION
-    if plot_moves['diffused_bomb'] == 1:
+    if plot_moves['diffused_bomb'] == 1 and "shuddup" == 0:
         # TODO: Write a fancy ending
         print("congratulations you win")
         print("you can keep playing")
         "winner" == 1
+        "shuddup" == 1
 
     print()
 #print("dis is gonna be an inventory")r
