@@ -173,15 +173,9 @@ def game_get_move( game_state):
 
     return move_raw
 
-def game_step( game_state, ):
 
 
-    # --- Get the observation
-    game_show_status( game_state )
-
-    # --- Enter the move
-
-    move_raw = game_get_move( game_state )
+def game_step( game_state,  move_raw ):
             
     # break up the command into parts
     move_parts = move_raw.split(' ')
@@ -431,7 +425,12 @@ Never gonna tell a lie and hurt you
 '''hi
 '''
 
-
+# main game loop:
 
 while True:
-    game_step( game_state, )
+    # --- Get the observation
+    game_show_status( game_state )
+
+    move_raw = game_get_move( game_state )
+  
+    game_step( game_state, move_raw )
